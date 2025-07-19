@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dessert Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-pink-50 text-gray-800 font-sans">
+
+    <!-- Header -->
+    <header class="bg-pink-600 text-white py-5 text-center shadow-md">
+        <h1 class="text-3xl font-bold">🍨 Desserts</h1>
+
+        <!-- Search Bar -->
+        <div class="max-w-4xl mx-auto mt-6 px-4">
+            <input type="text" id="searchInput" placeholder="Search for food..."
+                class="w-full p-3 border border-gray-300 rounded shadow focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-800 placeholder-gray-500"
+                onkeyup="filterCards()" />
+
+        </div>
+    </header>
+
+    <!-- Dessert Cards -->
+    <section class="py-10 px-6">
+        <div id="foodCards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+            <!-- Gulab Jamun -->
+            <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+                <img src="https://source.unsplash.com/400x400/?gulabjamun" class="w-full h-48 object-cover" />
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-pink-600">Gulab Jamun</h3>
+                    <p class="text-sm text-gray-600 mb-2">Soft syrupy balls of sweet khoya goodness.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold">₹40</span>
+                        <a href="payment.html">
+                            <button
+                                class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ice Cream -->
+            <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+                <img src="https://source.unsplash.com/400x400/?icecream" class="w-full h-48 object-cover" />
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-pink-600">Ice Cream</h3>
+                    <p class="text-sm text-gray-600 mb-2">Cold, creamy dessert available in many flavors.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold">₹50</span>
+                        <a href="payment.html">
+                            <button
+                                class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Halwa -->
+            <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+                <img src="https://source.unsplash.com/400x400/?halwa" class="w-full h-48 object-cover" />
+                <div class="p-4">
+                    <h3 class="text-xl font-bold text-pink-600">Gajar Halwa</h3>
+                    <p class="text-sm text-gray-600 mb-2">Traditional Indian carrot dessert cooked with milk and sugar.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold">₹45</span>
+                        <a href="payment.html">
+                            <button
+                                class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Search Script -->
+    <script>
+        function filterCards() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll("#foodCards .card");
+
+            cards.forEach(card => {
+                const title = card.querySelector("h3").textContent.toLowerCase();
+                card.style.display = title.includes(input) ? "block" : "none";
+            });
+        }
+    </script>
+
+</body>
+
+</html>

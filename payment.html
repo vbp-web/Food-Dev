@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Method - Food Order</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="bg-orange-600 text-white text-center py-4 shadow">
+    <h1 class="text-2xl font-bold">💰 Choose Payment Method</h1>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-xl mx-auto bg-white mt-10 p-6 rounded shadow">
+    <form onsubmit="submitPayment(event)">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Select a payment option:</h2>
+
+      <!-- UPI -->
+      <label class="block border p-4 rounded mb-3 cursor-pointer hover:border-orange-500">
+        <input type="radio" name="payment" value="UPI" class="mr-2" onchange="showSection('upi')">
+        <span class="font-medium">UPI / Google Pay / PhonePe</span>
+      </label>
+
+      <!-- Card -->
+      <label class="block border p-4 rounded mb-3 cursor-pointer hover:border-orange-500">
+        <input type="radio" name="payment" value="Card" class="mr-2" onchange="showSection('card')">
+        <span class="font-medium">Credit / Debit Card</span>
+      </label>
+
+      <!-- COD -->
+      <label class="block border p-4 rounded mb-3 cursor-pointer hover:border-orange-500">
+        <input type="radio" name="payment" value="COD" class="mr-2" onchange="showSection('cod')">
+        <span class="font-medium">💵 Cash on Delivery (COD)</span>
+        <p class="text-sm text-gray-500 ml-6 mt-1">Pay cash when the order is delivered to your address.</p>
+      </label>
+
+      <!-- UPI QR Section -->
+      <div id="upiSection" class="hidden mt-4">
+        <p class="font-medium mb-2">Scan this QR code using your UPI app:</p>
+        <img src="your-qr-code.png" alt="UPI QR" class="w-64 mx-auto rounded shadow" />
+      </div>
+
+      <!-- Card Payment Section -->
+      <div id="cardSection" class="hidden mt-4">
+        <h3 class="text-lg font-semibold mb-2">Enter Card Details</h3>
+        <input type="text" placeholder="Card Number" class="w-full mb-2 p-2 border rounded" required>
+        <input type="text" placeholder="Name on Card" class="w-full mb-2 p-2 border rounded" required>
+        <div class="flex gap-2">
+          <input type="text" placeholder="MM/YY" class="w-1/2 p-2 border rounded" required>
+          <input type="text" placeholder="CVV" class="w-1/2 p-2 border rounded" required>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="mt-6 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded text-lg">
+        Pay Now / Confirm Order
+      </button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-gray-600 py-4 mt-10">
+    &copy; 2025 Food House | All rights reserved.
+  </footer>
+
+  <!-- Script -->
+  <script>
+  function showSection(type) {
+    document.getElementById("upiSection").classList.add("hidden");
+    document.getElementById("cardSection").classList.add("hidden");
+
+    if (type === "upi") {
+      document.getElementById("upiSection").classList.remove("hidden");
+    } else if (type === "card") {
+      document.getElementById("cardSection").classList.remove("hidden");
+    }
+  }
+
+  function submitPayment(e) {
+    e.preventDefault();
+    const selected = document.querySelector('input[name="payment"]:checked');
+
+    if (!selected) {
+      alert("❌ Please select a payment method.");
+      return;
+    }
+
+    const method = selected.value;
+
+    if (method === "COD") {
+      alert("✅ Order confirmed!\nYou will pay cash on delivery.");
+      showSuccess("Order confirmed! Pay cash on delivery.");
+    } else if (method === "UPI") {
+      const isPaid = confirm("Have you completed UPI payment?");
+      if (isPaid) {
+        showSuccess("✅ Payment successful via UPI!");
+      } else {
+        alert("⚠️ Please complete the UPI payment first.");
+      }
+    } else if (method === "Card") {
+      // For real use, you'd validate card details here
+      const isPaid = confirm("Submit card payment?");
+      if (isPaid) {
+        showSuccess("✅ Card payment successful!");
+      } else {
+        alert("⚠️ Payment not completed.");
+      }
+    }
+  }
+
+  function showSuccess(message) {
+    // Hide form and show success message
+    document.querySelector("form").classList.add("hidden");
+    const main = document.querySelector("main");
+    main.innerHTML += `
+      <div class="mt-6 text-center bg-green-100 text-green-700 p-4 rounded shadow">
+        <h2 class="text-2xl font-bold mb-2">🎉 Thank You!</h2>
+        <p>${message}</p>
+        <p class="mt-2">Your order will be delivered soon. 🍽️</p>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
